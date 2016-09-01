@@ -27,33 +27,38 @@ angular.module("emerge_space", ['ui.router', 'jqform', 'ezfb', 'ngAnimate', 'myS
 			        var user_id = response.authResponse.userID;
 			        var page_id = "145862242107";
 			        var fql_query = "SELECT uid FROM page_fan WHERE page_id =" + page_id + " and uid=" + user_id;
-			        var the_query = FB.Data.query(fql_query);
+			        //var the_query = FB.Data.query(fql_query);
 			        var fb_profile_data = false;
 
 					$FB.api('/me', function(response){
 						fb_profile_data = response;
+						deferred.resolve({
+							connected: true,
+							status: true,
+							data: fb_profile_data
+						});
+							
+				    //     the_query.wait(function(rows) {
 
-				        the_query.wait(function(rows) {
+				    //         if (rows.length == 1 && rows[0].uid == user_id) {
 
-				            if (rows.length == 1 && rows[0].uid == user_id) {
-
-								deferred.resolve({
-									connected: true,
-									status: true,
-									data: fb_profile_data
-								});
+								// deferred.resolve({
+								// 	connected: true,
+								// 	status: true,
+								// 	data: fb_profile_data
+								// });
 				            
-				            } else {
+				    //         } else {
 
-								deferred.resolve({
-									connected: true,
-									status: false,
-									data: false
-								});
+								// deferred.resolve({
+								// 	connected: true,
+								// 	status: false,
+								// 	data: false
+								// });
 
-				            };
+				    //         };
 
-				        });
+				    //     });
 
 					});
 
@@ -213,6 +218,8 @@ angular.module("emerge_space", ['ui.router', 'jqform', 'ezfb', 'ngAnimate', 'myS
 
 .controller('enterYourFaceCtrl', function($scope, $FB, $q, $timeout, $http, $fbLikeStatus, mySettings){
 	
+	console.log("enterYourFaceCtrl");
+
 	$scope.nonce = "";
 
 	$scope.wp_base_path = mySettings.wp_base_path;
