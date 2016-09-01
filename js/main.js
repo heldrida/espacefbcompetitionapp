@@ -95,6 +95,8 @@ angular.module("emerge_space", ['ui.router', 'jqform', 'ezfb', 'ngAnimate', 'myS
 			controller: 'entriesCtrl',
 			resolve: {
 				myEntries: function($q, mySettings){
+					
+					console.log("mySettings.wp_base_path", mySettings.wp_base_path);
 
 					var deferred = $q.defer();
 
